@@ -1,0 +1,99 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'styles/profile.css' %}" />
+
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-container">
+
+    <div class="profile-adats">
+        <div class="profile-image-container" style=" background-image: conic-gradient(#7a6d72 {{filledadat}}%, #dcdcdc {{filledadat}}%);">
+            <img src="/static/images/{{profile.avatar}}"></img>
+        </div>
+        <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+        <h3>{{ profile.email }}</h3>
+        <h4>{{ profile.bio }}</h4>
+
+    </div>
+
+    <div class="profile-details">
+        <table>
+            <tr>
+                <td>Full Name:</td>
+                <td>{{ profile.first_name }} {{ profile.last_name }}</td>
+                <td><a href="{% url 'edit-profile' profile.id %}"><div class="profile-edit-ico"></div></a></td>
+            </tr>
+            <tr>
+                <td>Country:</td>
+                <td>{{ profile.Country }}</td>
+            </tr>
+            <tr>
+                <td>Address 1:</td>
+                <td>{{ profile.Address }}</td>
+            </tr>
+            <tr>
+                <td>Phone:</td>
+                <td>{{ profile.phonenumber }}</td>
+            </tr>
+            <tr>
+                <td>Member since:</td>
+                <td>{{ profile.date_joined|date:"M d, Y" }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="profile-purchase">
+        <span class="ico-products ico-left"></span>
+        <h2>Your Purchases</h2>
+
+        <span class="ico-products data-right">
+            <h3>12</h3>
+        </span>
+        <span class="ico-products ico-right"></span>
+    </div>
+
+    <div class="profile-purchase">
+        <span class="ico-products ico-left"></span>
+        <h2>Your comments</h2>
+
+        <span class="ico-products data-right">
+            <h3>{{comments_count}}</h3>
+        </span>
+        <span class="ico-products ico-right"></span>
+    </div>
+
+    <div class="profile-recommandations">
+        <div class="profile-recommandations-header">
+            <span class="ico-products ico-left"></span>
+            <h2>Our recommandations</h2>
+
+            <span class="ico-products data-right">
+                <h3>12</h3>
+            </span>
+            <span class="ico-products ico-right"></span>
+        </div>
+
+        <div class="profile-recommandations-container">
+			<div class="last-products">
+
+				<section class="products popular-products">
+					{% for recommandeds in recommandations %}
+						<article>
+							<img src="/static/images/{{recommandeds.imagemain}}" alt="">
+							<h3>{{recommandeds.name}}</h3>
+							<h4>{{recommandeds.price}}</h4>
+							<a href="cart.html" class="btn-add">Add to cart</a>
+						</article>
+					{% endfor %}
+				</section>
+			</div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

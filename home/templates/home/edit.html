@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+{% load static%}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'styles/log.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <div id="breadcrumbs">
+        <div class="container">
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li>{% if page == 'login' %}Sign in {% else %} Sign up {%endif%}</li>
+            </ul>
+        </div>
+        <!-- / container -->
+    </div>
+
+    <div class="log-container">
+        <div>
+            <form method="POST" action="">
+                {% csrf_token %}
+
+                {% for field in form %}
+                <h2><label for="room_name">{{field.label}}</label></h2>
+                {{field}}
+                {% endfor %}
+                <input type="submit" value="Update" />
+
+
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,118 @@
+
+{% load static %} 
+
+<head>
+	<meta charset="utf-8">
+	<title>Jewelry</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/slider.css' %}" />
+    {% block head %} 
+    {% endblock %}
+</head>
+
+
+{% if messages %}
+
+    {% for message in messages %}
+    {{message}}
+    {% endfor %} 
+
+{% endif %} 
+
+<body>
+    <header id="header">
+		<div class="container content-container">
+			<a href="{% url 'home' %}" id="logo" title="Diana’s jewelry">Diana’s jewelry</a>
+			<div class="right-links">
+				<ul>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'cart' %}"><span class="ico-products"></span>Cart</a></li>
+                    <li><a href="{% url 'profile' request.user.id %}"><span class="ico-account"></span>Account</a></li>
+					<li><a href="{% url 'logout' %}"><span class="ico-signout"></span>Sign out</a></li>
+                    {% else%}
+                    <li><a href="{% url 'login' %}"><span class="ico-signout"></span>Sign in</a></li>
+                    {% endif %}
+				</ul>
+			</div>
+		</div>
+		<!-- / container -->
+	</header>
+	<!-- / header -->
+
+	<nav id="menu">
+		<div class="container">
+			<div class="trigger"></div>
+			<ul>
+                <li><a href="{% url 'home' %}">About Us</a></li>
+				<li><a href="{% url 'products' 1 %}">Products</a></li>
+
+                <li><a href="{% url 'creator' %}" style="color:#7a6d72!important">Create your own</a></li>
+			</ul>
+		</div>
+		<!-- / container -->
+	</nav>
+
+    {% block content %} 
+
+    {% endblock %} 
+
+    <footer id="footer">
+        <div class="container content-container">
+            <div class="cols">
+                <div class="col">
+                    <h3>Frequently Asked Questions</h3>
+                    <ul>
+                        <li><a href="/#faq1">How much is the shipping costs?</a></li>
+                        <li><a href="/#faq2">Where do you ship?</a></li>
+                        <li><a href="/#faq3">How long does it take to process an order?</a></li>
+                        <li><a href="/#faq4">Can I add a giftnote?</a></li>
+                    </ul>
+                </div>
+                <div class="col media">
+                    <h3>Social media</h3>
+                    <ul class="social">
+                        <li><a href="#"><span class="ico ico-fb"></span>Facebook</a></li>
+                        <li><a href="#"><span class="ico ico-tw"></span>Twitter</a></li>
+                        <li><a href="#"><span class="ico ico-gp"></span>Google+</a></li>
+                        <li><a href="#"><span class="ico ico-pi"></span>Pinterest</a></li>
+                    </ul>
+                </div>
+                <div class="col contact">
+                    <h3>Contact us</h3>
+                    <p>Artemis EV <br>Netherlands</p>
+                    <p><span class="ico ico-em"></span><a href="#">contact@artemis.com</a></p>
+                </div>
+                <div class="col newsletter">
+                    <h3>Join our newsletter</h3>
+                    <p>Lets be informed about the newest drops, sales and a lot more.</p>
+                    <form action="#">
+                        <input type="text" placeholder="Your email address...">
+                        <button type="submit"></button>
+                    </form>
+                </div>
+            </div>
+            <p class="copy">Copyright 2022 Artemis. All rights reserved.</p>
+        </div>
+        <!-- / container -->
+    </footer>
+
+</body>
+
+<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'js/jquery.session.js' %}"></script>
+<script src="https://js.stripe.com/v3/"></script>
+
+<script src="{% static 'js/Sortable.js' %} "></script>
+<script src="{% static 'js/main.js' %} "></script>
+<script src="{% static 'js/plugins.js' %} "></script>
+<script src="{% static 'js/creator.js' %} "></script>
+<script src="{% static 'js/product.js' %} "></script>
+<script src="{% static 'js/client.js' %} "></script>
+
+
+<script>
+    $(document).ready(function(){
+      $('.slider').bxSlider();
+    });
+  </script>

@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'styles/delete.css' %}" />
+{% endblock %}
+
+
+{% block content %}
+
+<div class="delete-container">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <h2>Are you sure you want to delete "{{obj}}"?</h2>
+        <h3><a href="{{request.META.HTTP_REFERER}}">Go back</a></h3>
+        <input type="submit" value="Confirm" />
+
+    </form>
+</div>
+
+{% endblock %}

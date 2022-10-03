@@ -1,0 +1,117 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+	<div class="slider">
+			<li style="background-image: url(/static/images/0.jpg)">
+				<h3>Make your life better</h3>
+				<h2>Genuine diamonds</h2>
+				<a href="#" class="btn-more">Read more</a>
+			</li>
+			<li class="purple" style="background-image: url(/static/images/01.jpg)">
+				<h3>She will say “yes”</h3>
+				<h2>engagement ring</h2>
+				<a href="#" class="btn-more">Read more</a>
+			</li>
+			<li class="yellow" style="background-image: url(/static/images/02.jpg)">
+				<h3>You deserve to be beauty</h3>
+				<h2>golden bracelets</h2>
+				<a href="#" class="btn-more">Read more</a>
+			</li>
+	</div>
+	<!-- / body -->
+
+	<div id="body">
+		<div class="container">
+			<div class="last-products">
+				<h2>Halloween at Artèmis</h2>
+				<h3>Valami alsószöveg</h3>
+
+				<div class="discover_bttn">Discover more</div>
+				<section class="products popular-products">
+					{% for popular in populars %}
+					<a href="{% url 'product' popular.id %}">
+						<article>
+							<img src="/static/images/{{popular.imagemain}}" alt="">
+							<h3>{{popular.name}}</h3>
+							<h4>{{popular.price}}</h4>
+						</article>
+					</a>
+					{% endfor %}
+				</section>
+			</div>
+			
+			<div class="about_us">
+				<h2>About us</h2>
+
+				<div class="about_us-container">
+					<div class="about_us-tag">
+						<img src="/static/images/Jewelry_banners/jewelry_AHMA8pE.jpg" alt="">
+						<h4>Coming soon</h4>
+						<h2>Artemis | Holiday collection </h2>
+						<h3>Celebrate the holidays with the most bllabllablla jejwelrys by Artemis.</h3>
+						<h5>Learn more ></h5>
+					</div>
+					<div class="about_us-tag">
+						<img src="/static/images/Jewelry_banners/jewelry_AHMA8pE.jpg" alt="">
+						<h4>For you</h4>
+						<h2>Autumn Collection </h2>
+						<h3>Enjoy the cozyest season with the new autumn inspired collection.</h3>
+						<h5>Learn more ></h5>
+					</div>
+					<div class="about_us-tag">
+						<img src="/static/images/Jewelry_banners/jewelry_AHMA8pE.jpg" alt="">
+						<h4>News</h4>
+						<h2>More beads and charms</h2>
+						<h3>Design your own jewelry with the expanded portfolio of different thingys</h3>
+						<h5>Create your own ></h5>
+					</div>
+				</div>
+			</div>
+
+			<div class="last-products">
+				<h2>Most popular products</h2>
+				<h3>Find the most blabllabla</h3>
+
+				<div class="discover_bttn">Discover more</div>
+				<section class="products popular-products">
+					{% for popular in populars %}
+					<a href="{% url 'product' popular.id %}">
+						<article>
+							<img src="/static/images/{{popular.imagemain}}" alt="">
+							<h3>{{popular.name}}</h3>
+							<h4>{{popular.price}}</h4>
+						</article>
+					</a>
+					{% endfor %}
+				</section>
+			</div>
+			<div class="faq-container">
+				<h2>Frequently Asked Questions</h2>
+				<div class="faq-tag active-faq" id="faq1">
+					<h2>How much is the shipping costs?</h2>
+
+					<h3>How much is the shipping costs?</h3>
+				</div>
+				<div class="faq-tag" id="faq2">
+					<h2>Where do you ship?</h2>
+
+					<h3>How much is the shipping costs?</h3>
+				</div>
+				<div class="faq-tag" id="faq3">
+					<h2>How long does it take to process an order?</h2>
+
+					<h3>How much is the shipping costs?</h3>
+				</div>
+				<div class="faq-tag" id="faq4">
+					<h2>Can I add a giftnote?</h2>
+
+					<h3>How much is the shipping costs?</h3>
+				</div>
+			</div>
+		</div>
+		<!-- / container -->
+	</div>
+	<!-- / body -->
+{% endblock %}

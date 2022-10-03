@@ -1,0 +1,180 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'styles/creator.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+    <div class="creator-banner-container">
+        <ul class="creator-menus">
+            <li {% if page == "rigs" %}class="active-menu"{% endif %}><a href="{% url 'creator'%}">Rigs</a></li>
+            <li {% if page == "beads" %}class="active-menu"{% endif %}><a href="{% url 'beads' %}">Beads</a></li>
+            <li {% if page == "decor" %}class="active-menu"{% endif %}><a href="{% url 'decor'%}">Decor</a></li>
+            <li {% if page == "summa" %}class="active-menu"{% endif %}><a href="{% url 'creator'%}">Finalize</a></li>
+        </ul>
+        <div class="creator-menus-indicator-container">
+            <div class="creator-menus-indicator"></div>
+        </div>
+
+        <form method="POST" action="">
+            {% csrf_token %}
+        {% if page == "rigs"%}
+            <section class="creator-rigs-container">
+                {% for rig in rigs%}
+                <article>
+                    {% for image in rig.rigimage_set.all %}
+                        <div class="article_color_variation">
+                            <img src="/static/images/{{image.imagemain}}" />
+                        </div>
+
+                    {% endfor %}
+                    <h2>{{rig.name}}</h2>
+                    <h3>Colors</h3>
+                    <div class="article_color_container">
+
+                        {% for image in rig.rigimage_set.all %}
+                                <label style="background-color:{{image.color}}" class="article_color" for="{{image.id}}">
+                                    <br>
+                                    <input type="radio" id="{{image.id}}" name="rigs_color" value="{{image.id}}">
+                                </label>
+                        {% endfor %}
+                    </div>
+
+                    <h3>Price</h3>
+                    <h4>{{rig.price}} Eur</h4>
+                    <div class="article_price_container">
+                    </div>
+                </article>
+                {% endfor %}
+            </section>
+        {% elif page == "beads" %}
+        
+            {%  for rigimage in rigimages %}
+
+                <div class="creator-beads-container">
+                    <div class="creator-beads-tags creator-beads-images">
+
+                        <div class="creator-beads-images-container">
+                            <div class="creator-beads-image-tags creator-beads-images-all">
+                                {%  for bead in beads %}
+                                    <img class="article_image" name="{{bead.name}}" src="/static/images/{{bead.imagemain}}"></img>
+                                    <img class="article_image" name="{{bead.name}}" src="/static/images/{{bead.image2}}"></img>
+                                {% endfor %}
+                            </div>
+                            <div class="creator-beads-image-tags creator-beads-images-main">
+                                <img class="article_image_active" src="/static/images/{{rigimage.imagemain}}"></img>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="creator-beads-tags creator-beads-options">
+                        <ul class="creator-selected-rig">
+                            <li><img src="/static/images/{{rigimage.imagemain}}"></li>
+                            <li><h2>{{rigimage.rig.name}}</h2><h3>{{rigimage.color}}</h3></li>
+                            <li class="edit"><a href="{% url 'creator' %}"><div class="edit-image"></div></a></li>
+                        </ul>
+
+                        <div class="creator-select-beads-container">
+                            <h2>Add beads, charms and separators
+
+                            </h2>
+                            <div class="creator-select-beads-inner">
+
+                                <div id="sortablelist" class="list-group mb-4 mt-3" data-id="1">
+
+                                </div>
+
+                                <div class="creator-select-beads-content">
+                                    <div class="creator-select-bead">Add piece</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            {% endfor %}
+
+            <div class="bead_charm-selector-container">
+            </div>
+
+                <div class="bead_charm-selector-content">
+                    <div class="selector_close"></div>
+
+                    <div class="selector_filters"></div>
+
+                    <div class="selector_beads_charms-container">
+                        {% for bead in beads %}
+                            <article value="{{bead.id}}">
+                                    <div class="article_color_variation">
+                                        <img src="/static/images/{{bead.imagemain}}" />
+                                    </div>
+            
+                                <h2>{{bead.name}}</h2>
+            
+                                <h3>Price</h3>
+                                <h4>{{bead.price}} Eur</h4>
+                                <div class="article_price_container">
+                                </div>
+                            </article>
+                        {% endfor %}
+                    </div>
+                </div>
+        
+        {% elif page == "decor" %}
+            <section class="creator-rigs-container">
+                <h5>Boxes</h5>
+                {% for box in boxes%}
+                <article>
+                    <div class="article_color_variation">
+                        <img src="/static/images/{{box.imagemain}}" />
+                    </div>
+
+                    <h2>{{box.name}}</h2>
+                    <h3>Price</h3>
+                    <h4>{{box.price}} Eur</h4>
+                    <div class="article_price_container">
+                    </div>
+                </article>
+                {% endfor %}
+
+                <h5>Bags</h5>
+                {% for bag in bags%}
+                <article>
+                    <div class="article_color_variation">
+                        <img src="/static/images/{{bag.imagemain}}" />
+                    </div>
+
+                    <h2>{{bag.name}}</h2>
+                    <h3>Price</h3>
+                    <h4>{{bag.price}} Eur</h4>
+                    <div class="article_price_container">
+                    </div>
+                </article>
+                {% endfor %}
+
+                <h5>Cards</h5>
+                {% for card in cards%}
+                <article>
+                    <div class="article_color_variation">
+                        <img src="/static/images/{{card.imagemain}}" />
+                    </div>
+
+                    <h2>{{card.name}}</h2>
+                    <h3>Price</h3>
+                    <h4>{{card.price}} Eur</h4>
+                    <div class="article_price_container">
+                    </div>
+                </article>
+                {% endfor %}
+            </section>
+        {% endif %}
+
+        <div class="creator-steps-container">
+            <input type="submit" value="Next"></input>
+        </div>
+        </form>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+
+	<div id="breadcrumbs">
+		<div class="container content-container">
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li>Cart</li>
+			</ul>
+		</div>
+		<!-- / container -->
+	</div>
+	<!-- / body -->
+
+	<div id="body">
+		<div class="container content-container">
+			<div id="content" class="full">
+				<div class="cart-table">
+					<table>
+						<tr>
+							<th class="items">Items</th>
+							<th class="price">Price</th>
+							<th class="qnt">Quantity</th>
+							<th class="total">Total</th>
+							<th class="delete"></th>
+						</tr>
+						{% for cart_item in cart_items %}
+							<tr>
+								<td class="items">
+									<div class="image">
+										<img src="/static/images/{{cart_item.Jewelr.imagemain}}" alt="">
+									</div>
+									<h3><a href="#">{{cart_item.Jewelry.name}}</a></h3>
+									<p>{{cart_item.Jewelry.description}}</p>
+								</td>
+								<td class="price">€ {{cart_item.Jewelry.price}}</td>
+								<td class="qnt">  <input type="number" step="1" max="" value="{{cart_item.quantity}}" name="quantity" class="quantity-field"></td>
+								<td class="total">$1 350.00</td>
+								<td class="delete"><a href="{% url 'deleteitem' cart_item.id %}" class="ico-del"></a></td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+
+				<div class="total-count">
+					<h4>Subtotal: $4 500.00</h4>
+					<p>+shippment: $30.00</p>
+					<h3>Total to pay: <strong>$4 530.00</strong></h3>
+					<a href="{% url 'order' %}" class="btn-grey">Finalize and pay</a>
+				</div>
+		
+			</div>
+			<!-- / content -->
+		</div>
+		<!-- / container -->
+	</div>
+	<!-- / body -->
+{% endblock %}

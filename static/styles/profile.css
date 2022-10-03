@@ -1,0 +1,222 @@
+.profile-container
+{
+    width:80%;
+    max-width: 1000px;
+    height:fit-content;
+
+    margin:0 auto 0;
+}
+
+/*Header of the profile*/
+
+.profile-adats
+{
+    width:100%;
+    height:fit-content;
+
+    border-bottom: 1px solid #dcdcdc;
+    margin:0 auto 0;
+    padding:20px;
+
+    text-align: center;
+}
+
+.profile-image-container
+{
+    width:110px;
+    height:110px;
+
+    margin:20px auto 0;
+    border-radius: 100%;
+}
+
+
+.profile-adats img
+{
+    width:100px;
+    height:100px;
+
+    border-radius: 100%;
+    margin-top:5px;
+
+    border:5px solid white;
+    background-color: white;
+}
+
+
+.profile-adats h3 {
+    color: #7a6d72;
+    font-family: "Novecentowide";
+    font-size: 12px;
+    font-weight: 200;
+    letter-spacing: 4.5px;
+    line-height: 28px;
+  }
+
+  .profile-adats h2 {
+    font-family: "Novecentowide";
+    color: #656567;
+    font-size: 20px;
+    line-height: 46px;
+    letter-spacing: 9px;
+    font-weight: 400;
+  }
+
+
+/*Details abouit the profile*/
+
+.profile-details
+{
+    width:100%;
+    height:fit-content;
+    padding:40px 10px;
+
+    box-sizing: border-box;
+
+}
+
+
+.profile-details table
+{
+    width:100%;
+}
+
+.profile-details table td:nth-child(1)
+{
+    color:red;
+    width:150px;
+
+    color: #7a6d72;
+    font-family: "Novecentowide";
+    font-size: 15px;
+    font-weight: 200;
+    line-height: 28px;
+}
+
+.profile-details table td:nth-child(3)
+{
+    float:right;
+    text-align: right;
+}
+.profile-details .profile-edit-ico
+{
+    width: 20px;
+    height:20px;
+    margin: 0 20px 0 0;
+    filter: grayscale(100%);
+    background: url(../icons/ico_plus_grey.png) no-repeat;
+      background-position-x: 0%;
+      background-position-y: 0%;
+    background-position: 0 center;
+}
+
+
+.profile-purchase
+{
+    width:100%;
+    border: 1px solid #dcdcdc;
+
+    box-sizing: border-box;
+    padding:20px;
+    margin-bottom: 20px;
+
+    display: flex;
+}
+
+ h3,h2
+{
+    margin:0;
+    padding:0;
+    border:0;
+
+    color:white;
+
+    width:100%;
+    line-height: 1;
+
+    font-size: 12px;
+}
+
+h2
+{
+    font-family: "Novecentowide";
+    color: #656567;
+    font-size: 15px;
+    line-height: inherit;
+    font-weight: 400;
+}
+
+.ico-left {
+    float: left;
+    width: 20px;
+    margin: 0 20px 0 0;
+    background: url(../icons/ico_header.png) no-repeat;
+    background-position: 0 center;
+  }
+
+.data-right {
+    min-width: 40px;
+    float: right;
+    margin: 0 20px 0 0;
+    background-position: -8px 0px;
+    padding:10px 10px;
+    background-color: #7a6d72;
+
+    text-align: center;
+
+  }
+
+.ico-right {
+    float: right;
+    width: 20px;
+    margin: 0 12px 0 0;
+    background: url(../icons/ico_arrows.png) no-repeat 100% 0;
+    background-position: -8px center;
+  }
+
+/*Recommandations*/
+
+.profile-recommandations
+{
+    width:100%;
+    height:fit-content;
+    border: 1px solid #dcdcdc;
+    padding:0 0 0;
+    margin-bottom: 20px;
+}
+
+.profile-recommandations-header
+{
+    width:100%;
+    box-sizing: border-box;
+    padding:20px;
+
+    border-bottom: 1px solid #dcdcdc;
+
+    display: flex;
+}
+
+.profile-recommandations-container
+{
+    width:100%;
+    overflow: hidden;
+
+}
+
+.profile-recommandations-container .last-products
+{
+    border:0;
+    margin:0;
+    padding:0px 0 0;
+
+}
+
+.profile-recommandations-container .bx-prev 
+{
+    left:17px;
+}
+
+.profile-recommandations-container .bx-viewport
+{
+    left:17px;
+}

@@ -1,0 +1,106 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+	<div id="breadcrumbs">
+		<div class="container content-container">
+			<ul>
+				<li><a href="{% url 'home' %}">Home</a></li>
+				<li>Products</li>
+			</ul>
+		</div>
+		<!-- / container -->
+	</div>
+
+	<div id="body">
+		<div class="container content-container">
+			{% if label != "New Coming"%}
+			<div class="pagination">
+				<ul>
+					<li><a href="#"><span class="ico-prev"></span></a></li>
+					{% with ''|center:pages as range %}
+					{% for _ in range%}
+						<li><a href="{% url 'products' forloop.counter %}">{{ forloop.counter }}</a></li>
+					{% endfor %}
+					{% endwith %}
+					<li><a href="#"><span class="ico-next"></span></a></li>
+				</ul>
+			</div>
+			{% endif %}
+			<div class="products-wrap" >
+				{% if label != "New Coming"%}
+				<aside id="sidebar">
+					<form method="GET" action="">
+						<input type="text" name="q" placeholder="Search for product.."/>
+					</form>
+					<div class="widget">
+						<h3>Collections</h3>
+						<fieldset>
+							{% for topic in topics %}
+								<a href="?q={{topic.name}}"><h2>{{topic.name}}<span>({{ topic.number }})</span></h2></a>
+							{% endfor %}
+
+						</fieldset>
+					</div>
+					<div class="widget">
+						<h3>Color:</h3>
+						<fieldset>
+							{% for color in colors %}
+								<a href="?c={{color.name}}"><h2>{{color.name}}<span>({{ color.number }})</span></h2></a>
+							{% endfor %}
+						</fieldset>
+					</div>
+					<div class="widget widget-tags">
+						<h3>Popular tags:</h3>
+						<fieldset>
+							{% for tag in tags %}
+								<a href="?h={{tag.name}}"><label><h3>{{tag.name}}</h3></label></a>
+							{% endfor %}
+						</fieldset>
+					</div>
+					<div class="widget">
+						<a href="{% url 'products' 1 %}"><button>Reset</button></a>
+					</div>
+				</aside>
+				{% endif %}
+				<div id="content">
+					{% if label != "New Coming"%}
+					<h2>We have {{product_count}} products</h2>
+					{% endif %}
+					<section class="products"> 
+						{% for product in products %}
+							<article>
+								{% if label %}
+								<div class="product-label">
+									<h2>{{label}}</h2>
+								</div>
+								{% endif %}
+								<a href="{% url 'product' product.id %}"><img src="/static/images/{{product.imagemain}}" alt=""></a>
+								<h3><a href="product.html">{{product.name}}</a></h3>
+								<h4><a href="product.html">{{product.price}} eur </a></h4>
+								<a href="{% url 'addcart' product.id %}" class="btn-add">Add to cart</a>
+							</article>
+						{% endfor %}
+					</section>
+				</div>
+				<!-- / content -->
+			</div>
+			{% if label != "New Coming"%}
+			<div class="pagination">
+				<ul>
+					<li><a href="#"><span class="ico-prev"></span></a></li>
+					{% with ''|center:pages as range %}
+					{% for _ in range%}
+						<li ><a href="{% url 'products' forloop.counter %}">{{ forloop.counter }}</a></li>
+					{% endfor %}
+					{% endwith %}
+					<li><a href="#"><span class="ico-next"></span></a></li>
+				</ul>
+			</div>
+			{% endif %}
+		</div>
+		<!-- / container -->
+	</div>
+
+{% endblock %}
