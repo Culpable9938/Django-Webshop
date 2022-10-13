@@ -22,7 +22,7 @@ class User(AbstractUser):
     avatar = models.ImageField(null=True, default="avatar.svg")
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name','last_name', 'username']
+    REQUIRED_FIELDS = ['first_name','last_name']
 
 class Topic(models.Model):
     name = models.CharField(max_length=200)
