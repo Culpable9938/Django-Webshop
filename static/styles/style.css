@@ -220,7 +220,7 @@ a:hover {
 	float: left;
 	color: #656567;
 	font-weight: 500;
-	padding-left: 37px;
+	padding:0px  15px;
 	font-size: 12px;
 }
 
@@ -229,13 +229,19 @@ a:hover {
 }
 
 #logo {
-	width: 197px;
+	width: fit-content;
 	height: 52px;
 	display: block;
 	float: left;
 	cursor: pointer;
-	text-indent: -9999em;
-	background: url(../icons/logo.png) no-repeat;
+	text-align: center;
+
+	font-family: "Novecentowide";
+	color: #212121;
+	font-size: 28px;
+	line-height: 46px;
+	letter-spacing: 9px;
+	font-weight: 300;
 }
 
 
@@ -1537,6 +1543,51 @@ h1 {
 	padding: 28px 0;
 	clear: both;
 	border-top: 1px solid #999599;
+}
+
+.qty
+{
+	text-align: center;
+}
+
+.qty .Quantity h2
+{
+	height:20px;
+	font-size:20px;
+}
+
+.qty .plus {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: center;
+    color: rgb(148, 144, 144);
+    width:20px;
+    height: 20px;
+    font: 20px/1 Arial,sans-serif;
+    text-align: center;
+
+	margin:0 10px;
+
+    }
+.qty .minus {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: center;
+    color: rgb(148, 144, 144);
+    width:20px;
+    height: 20px;
+    font: 20px/1 Arial,sans-serif;
+    text-align: center;
+    background-clip: padding-box;
+
+	margin:0 10px;
+}
+
+.minus:hover{
+    background-color: #717fe0 !important;
+}
+.plus:hover{
+    background-color: #717fe0 !important;
 }
 
 

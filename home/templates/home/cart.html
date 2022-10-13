@@ -37,8 +37,12 @@
 									<p>{{cart_item.Jewelry.description}}</p>
 								</td>
 								<td class="price">€ {{cart_item.Jewelry.price}}</td>
-								<td class="qnt">  <input type="number" step="1" max="" value="{{cart_item.quantity}}" name="quantity" class="quantity-field"></td>
-								<td class="total">$1 350.00</td>
+								<td class="qnt">
+									<div class="qty mt-5">
+										<h2 class="Quantity"><a href="{% if cart_item.quantity > 1 %}{% url 'quantitysubs' cart_item.id %}{% endif %}"><span class="minus bg-dark">-</span></a>{{cart_item.quantity}}<a href="{% url 'quantityadd' cart_item.id %}"><span class="plus bg-dark">+</span></a></h2>
+									</div>
+								</td>
+								<td class="total">€ {{cart_item.totalprice}}</td>
 								<td class="delete"><a href="{% url 'deleteitem' cart_item.id %}" class="ico-del"></a></td>
 							</tr>
 						{% endfor %}
@@ -46,9 +50,9 @@
 				</div>
 
 				<div class="total-count">
-					<h4>Subtotal: $4 500.00</h4>
-					<p>+shippment: $30.00</p>
-					<h3>Total to pay: <strong>$4 530.00</strong></h3>
+					<h4>Subtotal:€ {{price}}</h4>
+					<p>+shippment: Calculated in checkout</p>
+					<h3>Total to pay:€ <strong>{{price}}</strong></h3>
 					<a href="{% url 'order' %}" class="btn-grey">Finalize and pay</a>
 				</div>
 		

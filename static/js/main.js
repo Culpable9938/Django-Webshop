@@ -60,3 +60,6 @@ $(".faq-tag").click(function(){
 	$(".faq-tag").removeClass("active-faq")
 	$(this).addClass("active-faq")
 });
+
+
+$(".")

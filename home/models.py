@@ -1,15 +1,15 @@
 
 from calendar import c
+from email.policy import default
 from re import A
 import uuid 
 from django.db import models
-from django_countries.fields import CountryField
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     
-    username = None
+    username = models.CharField(max_length=100, null=False, blank=True)
     email = models.EmailField(unique=True, null=True)
     
     Country = models.CharField(max_length=100, null=False, blank=True)
@@ -22,7 +22,7 @@ class User(AbstractUser):
     avatar = models.ImageField(null=True, default="avatar.svg")
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name','last_name']
+    REQUIRED_FIELDS = ['first_name','last_name', 'username']
 
 class Topic(models.Model):
     name = models.CharField(max_length=200)
@@ -95,15 +95,17 @@ class CartItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     Jewelry = models.ForeignKey(Jewelry, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
+    totalprice = models.IntegerField(default=0)
 
 class Order(models.Model):
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable= False)
-    username = models.ForeignKey(User, on_delete=models.CASCADE)     
+    user = models.ForeignKey(User, on_delete=models.CASCADE)     
+    ordernumber = models.IntegerField(default=0, blank=False)
     
     FirstName = models.CharField(max_length=100, null=False, blank=False)
     SecondName = models.CharField(max_length=100, null=False, blank=False)
-    email = models.EmailField(unique=True, null=True)
+    email = models.EmailField(unique=False, null=True)
     
     Address = models.CharField(max_length=100, null=False, blank=False)
     Country = models.CharField(max_length=100, null=False, blank=False)
@@ -114,4 +116,6 @@ class Order(models.Model):
     ordered_items = models.ManyToManyField(Jewelry)
     shippingstatus =  models.BooleanField(default=False)
     
+    def __int__(self):
+        return self.ordernumber
     

@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    {% for cart_item in cart_items %}
+    <form action="" method="post" id="payment-form">
     <ul class="order-container">
         <li>
             <h2>Billing address</h2>
@@ -16,28 +16,31 @@
                 <tr>
                 </tr>
                 <tr>
-                    <td><label>Firstname</label><br><input type="text"></input></td>
-                    <td><label>Secondname</label><br><input type="text"></input></td>
+                    <td><label>Firstname</label><br><input name="FirstName" type="text"></input></td>
+                    <td><label>Secondname</label><br><input name="SecondName" type="text"></input></td>
                 </tr>
 
                 <tr>
-                    <td style="display:block; width:200%"><label>Email</label><br><input style="display:block; width:95%" type="text"></input></td>
+                    <td style="display:block; width:200%"><label>Email</label><br><input name="email" style="display:block; width:95%" type="email"></input></td>
                 </tr>
 
                 <tr>
-                    <td ><label>Address</label><br><input type="text" placeholder="1234 Main St."></input></td>
+                    <td ><label>Address</label><br><input name="Address" type="text" placeholder="1234 Main St."></input></td>
                     <td ><label>Address 2</label><br><input type="text" placeholder="Apartnent or suite"></input></td>
                 </tr>
 
                 <tr>
-                    <td><label>Country</label><br><input type="text"></input></td>
-                    <td><label>Zip</label><br><input type="text"></input></td>
+                    <td><label>Country</label><br><input name="Country" type="text"></input></td>
+                    <td><label>Zip</label><br><input name="Zip" type="text"></input></td>
+                </tr>
+
+                <tr>
+                    <td style="display:block; width:200%"><label>Phonenumber</label><br><input name="phonenumber" style="display:block; width:95%" type="phonenumber"></input></td>
                 </tr>
             </table>
 
             <h2>Payment</h2>
             <div class="nfrmtn_cntnr nfrmtn_strp">
-                <form action="" method="post" id="payment-form">
                     {% csrf_token %}
                     <div class="form-row">
                     <label for="card-element">
@@ -52,20 +55,18 @@
                     </div>
                 
                     <button>Purchase</button>
-                </form>
             </div>
         </li>
         <li>
+            {% for cart_item in cart_items %}
             <div class="order-cart-tag">
-                <h2>{{cart_item.Jewelry.name}}<span>€ {{cart_item.Jewelry.price}}</span></h2>
-                <h3>{{cart_item.Jewelry.description}}</h3>
+                <h2>{{cart_item.Jewelry.name}}<span>€ {{cart_item.totalprice}} | {{cart_item.quantity}} pcs.</light></h2>
+                <h3>{{cart_item.Jewelry.description}} </h3>
             </div>
+                
+    {% endfor %}
         </li>
     </ul>
-
+</form>
       
-
-
-    
-    {% endfor %}
 {% endblock %}

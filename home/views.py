@@ -1,6 +1,8 @@
 from numbers import Integral
 import math
 import stripe
+import uuid 
+from random import randrange
 from decimal import Decimal
 from django.shortcuts import render, redirect
 from django.contrib import messages 
@@ -119,9 +121,36 @@ def cart(request):
     
     cart_items = CartItem.objects.filter(user=request.user)
     
-    context = {'cart_items':cart_items}
+    price = 0
+    for cart_item in cart_items:
+        price += cart_item.totalprice
+        
+    
+    
+    context = {'cart_items':cart_items, 'price':price}
     
     return render(request, 'home/cart.html', context)
+
+def quantityadd(request, md):
+    
+    cart_item = CartItem.objects.get(id=md)
+    cart_item.quantity += 1
+    cart_item.totalprice = cart_item.Jewelry.price * cart_item.quantity
+    
+    cart_item.save()
+    return redirect('cart')
+
+def quantitysubs(request, md):
+    cart_item = CartItem.objects.get(id=md)
+    
+    if cart_item.quantity > 1: 
+        cart_item.quantity -= 1
+        cart_item.totalprice = cart_item.Jewelry.price * cart_item.quantity
+    else:
+        pass
+    
+    cart_item.save()
+    return redirect('cart')
 
 @login_required(login_url='login')
 def order(request):
@@ -130,22 +159,26 @@ def order(request):
     if cart_items.count() <= 0:
         return redirect('cart')
     
+    price = 0
     
+    for cart_price in cart_items:
+        price += cart_price.totalprice
+        
+    price = price * 100
+        
+        
+
     if request.method == 'POST':
         
         stripe.api_key = 'sk_test_51Loj3zGcmIEJkd8G4SNblH61TGQTe9MCyQsLvsYQTzBolLLrLY1TcU9RSNMjq2YRLySwtf8dGu4LsSaP6wAFe0TM009O4eMvt4'
         token = request.POST['stripeToken']
-
-        charge = stripe.Charge.create(
-            amount=999,
-            currency='eur',
-            description='Example charge',
-            source=token,
-        )
         
+        ordernumber = randrange(1000000000,9999999999)
+    
         order = Order.objects.create(
             
-            username = request.user,
+            user = request.user,
+            ordernumber = ordernumber,
             FirstName = request.POST['FirstName'],
             SecondName = request.POST['SecondName'],
             email = request.POST['email'],
@@ -154,10 +187,25 @@ def order(request):
             Zip = request.POST['Zip'],
             
             phonenumber = request.POST['phonenumber'],
-            
-            ordered_items = request.POST['ordered_items'],
-
         )    
+        
+        
+        for cart_item in cart_items:
+            order.ordered_items.add(cart_item.Jewelry.id)
+            order.save()
+            cart_item.delete()
+    
+        
+        charge = stripe.Charge.create(
+            amount=price,
+            currency='eur',
+            description='order number: ' + str(ordernumber),
+            source=token,
+        )
+        
+
+        return redirect('home')
+        
         
     context = {'cart_items':cart_items}
     
@@ -169,19 +217,24 @@ def addCart(request,pk):
     item = Jewelry.objects.get(id=pk)   
     
     if CartItem.objects.all():
-        cart = CartItem.objects.get(Jewelry__name__contains=item)
+        if CartItem.objects.filter(Jewelry__name__contains=item).exists():
+            cart = CartItem.objects.get(Jewelry__name__contains=item)
+        else:
+            cart = ''
     else:
         cart = ''
     
     if cart:
         cart.quantity += 1
+        cart.totalprice = cart.quantity * item.price
         cart.save()
     else:
         
         cartitem = CartItem.objects.create(
             
             user = request.user,
-            Jewelry=item
+            Jewelry=item,
+            totalprice = item.price
         )
     
     return redirect('cart')
@@ -189,10 +242,14 @@ def addCart(request,pk):
 @login_required(login_url='login')
 def userProfile(request, pk):
 
+    if str(request.user.id) != str(pk):
+        return redirect('home')        
+
     profile = User.objects.get(id=pk)
     topics = Topic.objects.all()
     comments = Comment.objects.filter(user=profile)
     comments_count = comments.count()
+
     
     
     adats = [profile.first_name, profile.last_name, profile.email, profile.Country, profile.Address, profile.phonenumber, profile.avatar]
